@@ -1,6 +1,10 @@
-﻿using System.ComponentModel.Design;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace Block2LabLibrary
+namespace DungeonLibrary
 {
 
     //abstract marks a class as "incomplete" it MUST be inherited somehwere to be used.
