@@ -33,7 +33,7 @@ namespace DungeonLibrary
         #region Constructors
 
         public Player(string name, Race playerRace, Weapon equippedWeapon)
-            : base(name: name, maxLife: 50, life: 50, hitChance: 60, block: 30)
+            : base(name: name, maxLife: 50, life: 50, hitChance: 70, block: 30)
         {
             PlayerRace = playerRace;
             EquippedWeapon = equippedWeapon;
@@ -47,7 +47,7 @@ namespace DungeonLibrary
                     break;
                 case Race.Human:
                     MaxLife -= 5;
-                    Life -= 5;
+                    Life = MaxLife;
                     HitChance += 5;
                     Block += 5;
                     break;
@@ -57,8 +57,8 @@ namespace DungeonLibrary
                     break;
 
                 case Race.Dwarf:
-                    MaxLife += 15;
-                    Life += 15;
+                    MaxLife += 20;
+                    Life = MaxLife;
                     Block -= 5;
                     break;
 
@@ -100,7 +100,7 @@ namespace DungeonLibrary
             switch (PlayerRace)
             {
                 case Race.Orc:
-                    raceDescription = "Orcs are the largest race in the realm. They use brute force to destroy anything foolish enough to stand in their way.";
+                    raceDescription = "Orcs are the largest race in the realm. They use brute force to destroy anything foolish enough to stand in their way... If their wild swings hit...";
                     break;
                 case Race.Human:
                     raceDescription = "Humans are adept at combat, but are less resilient than their elder race cousins.";

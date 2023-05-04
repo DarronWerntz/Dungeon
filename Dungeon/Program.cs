@@ -85,7 +85,10 @@ namespace Dungeon
             Console.WriteLine("\nYou look funny for a... uhh... What are you exactly?");
             int raceChoice = Convert.ToInt32(Console.ReadLine());
             //int raceChoice = Convert.ToInt32(Console.ReadKey().KeyChar).ToString();
-            Race userRace = (Race)(raceChoice - 1);           
+            Race userRace = (Race)(raceChoice - 1);
+
+            
+            Console.Clear();
 
 
             #endregion
@@ -95,13 +98,19 @@ namespace Dungeon
             #endregion
 
 
-            Console.WriteLine("\nWait! Tell me, what name shall we relay to the bards for the hero who saved our realm?\n");
+            Console.WriteLine("\nWait! Should you conquer The Goblin Keep, tell me, what name shall I relay to the bards for the hero who saved our realm?\n");
 
             Console.Write("What is your Name: ");
             string name = Console.ReadLine();
+            
+            Console.Clear();
 
-            Console.WriteLine($"\nA {userRace} named {name}, huh? Well, I wish you all the best on your adventure. Enter the keep and SLAY THE GOBLIN KING!\n\n");
 
+            Console.WriteLine($"\nA {userRace} named {name}, huh? Well, I wish you all the best on your adventure. Enter the keep and SLAY THE GOBLIN KING!\n\n\n\n\n");
+
+            Console.WriteLine("Press a button to continue");
+            Console.ReadKey();
+            Console.Clear();
 
             Player player = new Player(name, userRace, userWeapon);
 
