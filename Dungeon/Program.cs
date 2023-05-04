@@ -1,4 +1,6 @@
-﻿namespace Dungeon
+﻿using DungeonLibrary;
+
+namespace Dungeon
 {
     internal class Program
     {
@@ -9,16 +11,99 @@
             Console.Title = "THE GOBLIN KEEP";
             Console.WriteLine("Welcome, Hero! Goblins have been pouring out to the lands from a mysterious cave called The Goblin Keep wreaking havoc everywhere they go. Indeed, much destruction has been made to the lands we call home, but not a single goblin has been sighted in nearly a week... It could be that the goblins are gathering their numbers to prepare for a battle to end all that we know and love. You, hero, must delve into its labrynthine depths and slay the goblin king to end the terrors being unleashed on our world! Stay vigilant and enter at your own peril... Victory will only be found by the brave and the bold! Oh, and bring a lantern. Goblins are known to dwell in dark places.\n\n");
 
+            //Console.WriteLine("But first, tell us a little about yourself:\n" +
+            //    "What is your Name: \n" +
+            //"What is your Race: \n");
+
             #endregion
 
 
             //TODO - Variable to keep score
 
 
-            //TODO - Weapon object creation
+            //Player Creation
+            #region PlayerCreation
+
+            //Weapon Choice
+            #region Weapon Selection
+
+            //Weapon Choice Creation
+            Weapon wep1 = new("Sword", 8, 1, 5, true, WeaponType.Sword);
+            Weapon wep2 = new("Dagger", 6, 1, 10, false, WeaponType.Dagger);
+            Weapon wep3 = new("Mace", 10, 3, 0, true, WeaponType.Mace);
+            Weapon wep4 = new("Crossbow", 8, 1, 5, true, WeaponType.Crossbow);
+            Weapon wep5 = new("Staff", 8, 1, 5, true, WeaponType.Staff);
+
+            List<Weapon> weapons = new List<Weapon>() { wep1, wep2, wep3, wep4, wep5 };
+
+            Weapon userWeapon = new();
+
+            bool wepEquipped = false;
+            do
+            {
+                Console.WriteLine($"What is your weapon, oh brave one?\n" +
+                                  $"1) {wep1.Type}\n" +
+                                  $"2) {wep2.Type}\n" +
+                                  $"3) {wep3.Type}\n" +
+                                  $"4) {wep4.Type}\n" +
+                                  $"5) {wep5.Type}\n");
+                string userChoice = (Console.ReadKey().KeyChar).ToString();
+                Console.Clear();
+
+                if (!int.TryParse(userChoice, out int wepChoice))
+                {
+                    Console.WriteLine("...You use a what? Tell me, really...\n"); continue;
+                }
+                else
+                {
+                    if (wepChoice > 0 && wepChoice < 6)
+                    {
+                        userWeapon = weapons[wepChoice -1];
+                        wepEquipped = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Why are you being so difficult abut this....");
+                    }
+                }
+               
+
+            } while (!wepEquipped);
+
+            #endregion
+
+            //Race Choice
+            #region Race Selection
+
+            Race[] races = Enum.GetValues<Race>();
+
+            foreach (Race item in races)
+            {
+                Console.WriteLine($"{(int)item +1} - {item}");
+            }
+
+            Console.WriteLine("\nYou look funny for a... uhh... What are you exactly?");
+            int raceChoice = Convert.ToInt32(Console.ReadLine());
+            //int raceChoice = Convert.ToInt32(Console.ReadKey().KeyChar).ToString();
+            Race userRace = (Race)(raceChoice - 1);           
 
 
-            //TODO - Player object creation
+            #endregion
+
+
+
+            #endregion
+
+
+            Console.WriteLine("\nWait! Tell me, what name shall we relay to the bards for the hero who saved our realm?\n");
+
+            Console.Write("What is your Name: ");
+            string name = Console.ReadLine();
+
+            Console.WriteLine($"\nA {userRace} named {name}, huh? Well, I wish you all the best on your adventure. Enter the keep and SLAY THE GOBLIN KING!\n\n");
+
+
+            Player player = new Player(name, userRace, userWeapon);
 
 
             //Main Game Loop
@@ -64,7 +149,8 @@
                             Console.WriteLine("You run from the fight");
                             reload = true;
                             break;
-                        case ConsoleKey.P: //TODO Player
+                        case ConsoleKey.P:
+                            Console.WriteLine(player);
                             break;
                         case ConsoleKey.M: //TODO Monster
                             break;

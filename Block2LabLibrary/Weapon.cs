@@ -12,7 +12,7 @@ namespace DungeonLibrary
         //Fields
         #region Fields
 
-        private string _name;
+        //private string _name;
         private int _maxDamage;
         private int _minDamage;
         private int _bonusHitChance;
@@ -35,7 +35,7 @@ namespace DungeonLibrary
             }
             set
             {
-                if (value <= MaxDamage)
+                if (value <= MaxDamage && value > 0)
                 {
                     _minDamage = value;
                 }
@@ -48,7 +48,7 @@ namespace DungeonLibrary
 
         public int BonusHitChance { get; set; }
         public bool IsTwoHanded { get; set; }
-        public string Type { get; set; }
+        public WeaponType Type { get; set; }
 
         #endregion
 
@@ -56,7 +56,7 @@ namespace DungeonLibrary
         //Constructors
         #region Constructors
 
-        public Weapon(string name, int maxDamage, int minDamage, int bonusHitChance, bool isTwoHanded, string type)
+        public Weapon(string name, int maxDamage, int minDamage, int bonusHitChance, bool isTwoHanded, WeaponType type)
         {
             Name = name;
             MaxDamage = maxDamage;
@@ -66,7 +66,10 @@ namespace DungeonLibrary
             Type = type;
 
         }
-
+        public Weapon()
+        {
+            
+        }
 
         #endregion
 
