@@ -17,6 +17,7 @@ namespace DungeonLibrary
         private int _minDamage;
         private int _bonusHitChance;
         private bool _isTwoHanded;
+        private string _type;
 
         #endregion
 
@@ -47,6 +48,7 @@ namespace DungeonLibrary
 
         public int BonusHitChance { get; set; }
         public bool IsTwoHanded { get; set; }
+        public string Type { get; set; }
 
         #endregion
 
@@ -54,15 +56,14 @@ namespace DungeonLibrary
         //Constructors
         #region Constructors
 
-        public Weapon(string name, int maxDamage, int minDamage, int bonusHitChance, bool isTwoHanded)
+        public Weapon(string name, int maxDamage, int minDamage, int bonusHitChance, bool isTwoHanded, string type)
         {
             Name = name;
             MaxDamage = maxDamage;
             MinDamage = minDamage;
             BonusHitChance = bonusHitChance;
             IsTwoHanded = isTwoHanded;
-
-            //TODO - add a parameter and assignment for WeaponType
+            Type = type;
 
         }
 
@@ -77,9 +78,8 @@ namespace DungeonLibrary
         {
             return $"{Name}: {(IsTwoHanded ? "Two" : "One")}-Handed\n" +
                    $"Damage: {MinDamage} - {MaxDamage}\n" +
-                   $"Bonus Hit: {BonusHitChance}%\n";
-
-            //TODO - Add WeaponType to the ToString();
+                   $"Bonus Hit: {BonusHitChance}%\n" +
+                   $"Weapon Type: {Type}\n";
 
         }
 
