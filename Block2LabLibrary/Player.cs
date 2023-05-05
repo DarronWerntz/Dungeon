@@ -65,7 +65,7 @@ namespace DungeonLibrary
 
                 case Race.Halfling:
                     Block += 10;
-                    EquippedWeapon.MaxDamage -= 5;
+                    EquippedWeapon.MaxDamage -= 2;
                     break;
 
                 default:
