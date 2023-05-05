@@ -11,10 +11,6 @@ namespace Dungeon
             Console.Title = "THE GOBLIN KEEP";
             Console.WriteLine("Welcome, Hero! Goblins have been pouring out to the lands from a mysterious cave called The Goblin Keep wreaking havoc everywhere they go. Indeed, much destruction has been made to the lands we call home, but not a single goblin has been sighted in nearly a week... It could be that the goblins are gathering their numbers to prepare for a battle to end all that we know and love. You, hero, must delve into its labrynthine depths and slay the goblin king to end the terrors being unleashed on our world! Stay vigilant and enter at your own peril... Victory will only be found by the brave and the bold! Oh, and bring a lantern. Goblins are known to dwell in dark places.\n\n");
 
-            //Console.WriteLine("But first, tell us a little about yourself:\n" +
-            //    "What is your Name: \n" +
-            //"What is your Race: \n");
-
             #endregion
 
 
@@ -106,7 +102,7 @@ namespace Dungeon
             Console.Clear();
 
 
-            Console.WriteLine($"\nA {userRace} named {name}, huh? Well, I wish you all the best on your adventure. Enter the keep and SLAY THE GOBLIN KING!\n\n\n\n\n");
+            Console.WriteLine($"\nA {userRace} named {name}, huh? Well, I wish you luck on your adventure. Enter the keep and SLAY THE GOBLIN KING!\n\n\n\n\n");
 
             Console.WriteLine("Press a button to continue");
             Console.ReadKey();
@@ -126,7 +122,9 @@ namespace Dungeon
                 Console.WriteLine(GetRoom());
 
 
-                //TODO - Generate a monster
+                //Generate a monster
+                Monster monster = GetMonster();
+                Console.WriteLine("Opponent: " + monster.Name);
 
 
                 //Encounter/Menu Loop
@@ -152,17 +150,38 @@ namespace Dungeon
                     
                     switch (choice)
                     {
-                        case ConsoleKey.A: //TODO Combat
+                        case ConsoleKey.A:
+                            Combat.DoAttack(player, monster);
+                            Combat.DoAttack(monster, player);
+                            if (monster.Life <= 0)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine($"\nYou killed {monster.Name!}\n");
+                                Console.ResetColor();
+                                Console.ReadKey();
+                                reload = true;
+                                //score++;
+                                //Possible Expansion: good spot for levelling and rewards.
+                                //money, equipment. blah blah, chance to heal
+                            }
                             break;
-                        case ConsoleKey.R: //TODO Run Away
+
+                        case ConsoleKey.R:
                             Console.WriteLine("You run from the fight");
+                            //Attack of Opportunity
+                            Combat.DoAttack(monster, player);
+                            //Console.WriteLine("You have defeated " + score + " monster.");
                             reload = true;
                             break;
+
                         case ConsoleKey.P:
                             Console.WriteLine(player);
                             break;
-                        case ConsoleKey.M: //TODO Monster
+
+                        case ConsoleKey.M:
+                            Console.WriteLine(monster);
                             break;
+
                         case ConsoleKey.Escape:
                         case ConsoleKey.X:
                             Console.WriteLine("Quit");
@@ -174,10 +193,14 @@ namespace Dungeon
                             break;
                     }
 
+                    if (player.Life <= 0)
+                    {
+                        Console.WriteLine("You died and were forgotten!\n");
+                        lose = true;
+                    }
 
-                    //TODO Check player life. If they're dead, game over.
 
-                  //While Reload and Lose are BOTH FALSE, keep looping.
+                    //While Reload and Lose are BOTH FALSE, keep looping.
                 } while (!reload && !lose);
                 
                 #endregion
@@ -221,7 +244,40 @@ namespace Dungeon
             //return rooms[new Random().Next(rooms.Length)];
 
         }//end GetRoom()
-            #endregion
+        #endregion
+
+        #endregion
+
+        //GetMonster
+        #region Get Monster
+
+        private static Monster GetMonster()
+        {
+            Monster m1 = new("Necromancer", 50, 50, 70, 15, 8, 1, "An undead creature that raises the dead.");
+            Monster m2 = new("Skeleton Lord", 45, 45, 70, 25, 8, 1, "An armored skeleton with a large shield.");
+            Monster m3 = new(name: "Wraith", 35, 35, 70, 20, 8, 1, "A ghostly manifestation of hate that sends chills down your spine.");
+            Monster m4 = new("Hob Goblin", 40, 40, 70, 20, 8, 1, "A stout goblin with more intelligence than your average goblin.");
+
+            Zombie m5 = new("Zombie", 25, 25, 70, 15, 4, 1, "A decaying creature raised from the dead.", true);
+            Skeleton m6 = new("Skeleton", 20, 20, 70, 20, 4, 1, "A armored, shaky skeleton with brittle bones.", true);
+            Ghost m7 = new("Ghost",15, 15, 70, 15, 4, 1, "A lingering spirit seeking vengeance.", true);
+            Goblin m8 = new("Goblin", 20, 20, 70, 15, 4, 1, "A sneaky, nimble goblin.", true);
+
+            Monster[] monsters =
+            {
+                m1,
+                m2,
+                m3,
+                m4,m4,
+
+                m5,m5,m5,
+                m6,m6,m6,
+                m7,m7,m7,
+                m8,m8,m8,
+            };
+
+            return monsters[new Random().Next(monsters.Length)];
+        }
 
         #endregion
 
