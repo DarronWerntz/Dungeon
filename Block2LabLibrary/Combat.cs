@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -28,7 +29,10 @@ namespace DungeonLibrary
                 //Calculate the damage
                 int damage = attacker.CalcDamage();
                 #region potential expansion - crits
-                //if Roll > 80, then increase damage by something.
+                //if (roll >= 80)
+                //{
+                //    damage = damage + (damage/2);
+                //}
                 //damage *= 2
                 //if they fail, with a 100, maybe hurt the attacker instead of the defender.
                 #endregion

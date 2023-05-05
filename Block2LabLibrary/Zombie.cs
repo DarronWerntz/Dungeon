@@ -57,11 +57,13 @@ namespace DungeonLibrary
 
         public override int CalcBlock()
         {
+            int calculatedBlock = Block;
+
             if (Decayed)
             {
-                int maxLife = MaxLife - 5;
+                calculatedBlock -= 5;
             }
-            return CalcBlock();
+            return calculatedBlock;
         }
 
 

@@ -57,11 +57,13 @@ namespace DungeonLibrary
 
         public override int CalcBlock()
         {
+            int calculatedBlock = Block;
+
             if (Floating)
             {
-                int block = Block + 5;
+                calculatedBlock += 5;
             }
-            return CalcBlock();
+            return calculatedBlock;
         }
 
 

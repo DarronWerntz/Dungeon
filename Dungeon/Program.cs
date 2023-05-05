@@ -14,7 +14,8 @@ namespace Dungeon
             #endregion
 
 
-            //TODO - Variable to keep score
+            //Variable to keep score
+            int score = 0;
 
 
             //Player Creation
@@ -24,11 +25,11 @@ namespace Dungeon
             #region Weapon Selection
 
             //Weapon Choice Creation
-            Weapon wep1 = new("Sword", 8, 1, 5, true, WeaponType.Sword);
-            Weapon wep2 = new("Dagger", 6, 1, 10, false, WeaponType.Dagger);
+            Weapon wep1 = new("Sword", 6, 1, 5, true, WeaponType.Sword);
+            Weapon wep2 = new("Dagger", 4, 1, 10, false, WeaponType.Dagger);
             Weapon wep3 = new("Mace", 10, 3, 0, true, WeaponType.Mace);
             Weapon wep4 = new("Crossbow", 8, 1, 5, true, WeaponType.Crossbow);
-            Weapon wep5 = new("Staff", 8, 1, 5, true, WeaponType.Staff);
+            Weapon wep5 = new("Staff", 6, 1, 5, true, WeaponType.Staff);
 
             List<Weapon> weapons = new List<Weapon>() { wep1, wep2, wep3, wep4, wep5 };
 
@@ -59,7 +60,7 @@ namespace Dungeon
                     }
                     else
                     {
-                        Console.WriteLine("Why are you being so difficult abut this....");
+                        Console.WriteLine("Why are you being so difficult about this....");
                     }
                 }
                
@@ -68,21 +69,41 @@ namespace Dungeon
 
             #endregion
 
-            //Race Choice
+            //Race Choice  *********************ASK JEREMY HOW TO MAKE THEM ONlY ABLE TO PUT IN A NUMBER
             #region Race Selection
 
             Race[] races = Enum.GetValues<Race>();
 
-            foreach (Race item in races)
-            {
-                Console.WriteLine($"{(int)item +1} - {item}");
-            }
-
             Console.WriteLine("\nYou look funny for a... uhh... What are you exactly?");
-            int raceChoice = Convert.ToInt32(Console.ReadLine());
-            //int raceChoice = Convert.ToInt32(Console.ReadKey().KeyChar).ToString();
-            Race userRace = (Race)(raceChoice - 1);
 
+            int raceChoice = 0;
+
+            do
+            {
+
+                foreach (Race item in races)
+                {
+                    Console.WriteLine($"{(int)item} - {item}");
+                }
+
+                 raceChoice = Convert.ToInt32(Console.ReadLine());
+
+                Console.Clear();
+
+                if (raceChoice > 0 && raceChoice <= races.Length)
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Why are you being so difficult about this....");
+                }
+
+
+            } while (true);
+
+
+            Race userRace = (Race)(raceChoice);
             
             Console.Clear();
 
@@ -102,7 +123,7 @@ namespace Dungeon
             Console.Clear();
 
 
-            Console.WriteLine($"\nA {userRace} named {name}, huh? Well, I wish you luck on your adventure. Enter the keep and SLAY THE GOBLIN KING!\n\n\n\n\n");
+            Console.WriteLine($"\nA {userRace} named {name}, huh? Well, I wish you luck on your adventure. Enter the keep and SLAY EVERY GOBLIN YOU SEE!\n\n\n\n\n");
 
             Console.WriteLine("Press a button to continue");
             Console.ReadKey();
@@ -112,7 +133,6 @@ namespace Dungeon
 
 
             //Main Game Loop
-            //TODO Output the final score.
             #region Main Game
                         
             bool lose = false;
@@ -139,6 +159,8 @@ namespace Dungeon
                         "A) Attack\n" +
                         "R) Run Away\n" +
                         "P) Player Info\n" +
+                        "W) Weapon Info\n" +
+                        "S) Score\n" +
                         "M) Monster Info\n" +
                         "X) Exit\n");
                     
@@ -158,7 +180,12 @@ namespace Dungeon
                                 Console.ForegroundColor = ConsoleColor.Green;
                                 Console.WriteLine($"\nYou killed {monster.Name!}\n");
                                 Console.ResetColor();
+                                score += 1;
+                                Console.WriteLine($"\nYou take the opportunity to rest and restore your strength\n");
+                                player.Life += 10;
+                                Console.WriteLine($"So far, you have defeated {score} monsters.");
                                 Console.ReadKey();
+                                Console.Clear();
                                 reload = true;
                                 //score++;
                                 //Possible Expansion: good spot for levelling and rewards.
@@ -178,6 +205,14 @@ namespace Dungeon
                             Console.WriteLine(player);
                             break;
 
+                        case ConsoleKey.W:
+                            Console.WriteLine(userWeapon);
+                            break;
+
+                        case ConsoleKey.S:
+                            Console.WriteLine(score);
+                            break;
+
                         case ConsoleKey.M:
                             Console.WriteLine(monster);
                             break;
@@ -195,7 +230,7 @@ namespace Dungeon
 
                     if (player.Life <= 0)
                     {
-                        Console.WriteLine("You died and were forgotten!\n");
+                        Console.WriteLine($"You died and were forgotten, but you took {score} monsters with you!  \n");
                         lose = true;
                     }
 
@@ -253,22 +288,22 @@ namespace Dungeon
 
         private static Monster GetMonster()
         {
-            Monster m1 = new("Necromancer", 50, 50, 70, 15, 8, 1, "An undead creature that raises the dead.");
-            Monster m2 = new("Skeleton Lord", 45, 45, 70, 25, 8, 1, "An armored skeleton with a large shield.");
-            Monster m3 = new(name: "Wraith", 35, 35, 70, 20, 8, 1, "A ghostly manifestation of hate that sends chills down your spine.");
-            Monster m4 = new("Hob Goblin", 40, 40, 70, 20, 8, 1, "A stout goblin with more intelligence than your average goblin.");
+            Monster m1 = new("Necromancer", 50, 50, 80, 15, 8, 1, "An undead creature that raises the dead.");
+            Monster m2 = new("Skeleton Lord", 45, 45, 80, 25, 8, 1, "An armored skeleton with a large shield.");
+            Monster m3 = new(name: "Wraith", 35, 35, 80, 20, 8, 1, "A ghostly manifestation of hate that sends chills down your spine.");
+            Monster m4 = new("Hob Goblin", 40, 40, 80, 20, 8, 1, "A stout goblin with more intelligence than your average goblin.");
 
-            Zombie m5 = new("Zombie", 25, 25, 70, 15, 4, 1, "A decaying creature raised from the dead.", true);
-            Skeleton m6 = new("Skeleton", 20, 20, 70, 20, 4, 1, "A armored, shaky skeleton with brittle bones.", true);
-            Ghost m7 = new("Ghost",15, 15, 70, 15, 4, 1, "A lingering spirit seeking vengeance.", true);
-            Goblin m8 = new("Goblin", 20, 20, 70, 15, 4, 1, "A sneaky, nimble goblin.", true);
+            Zombie m5 = new("Zombie", 25, life: 25, hitChance: 80, block: 10, maxDamage: 4, minDamage: 1, description: "A decaying creature raised from the dead.", decayed: true);
+            Skeleton m6 = new("Skeleton", 20, 20, 80, 15, 4, 1, "A armored, shaky skeleton with brittle bones.", true);
+            Ghost m7 = new("Ghost",15, 15, 80, 10, 4, 1, "A lingering spirit seeking vengeance.", true);
+            Goblin m8 = new("Goblin", 20, 20, 80, 10, 4, 1, "A sneaky, nimble goblin.", true);
 
             Monster[] monsters =
             {
                 m1,
                 m2,
                 m3,
-                m4,m4,
+                m4,
 
                 m5,m5,m5,
                 m6,m6,m6,

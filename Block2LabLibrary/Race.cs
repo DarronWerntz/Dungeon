@@ -8,7 +8,7 @@ namespace DungeonLibrary
 {
     public enum Race
     {
-        Human,
+        Human = 1,
         Orc,
         Elf,
         Dwarf,

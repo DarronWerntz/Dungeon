@@ -57,13 +57,17 @@ namespace DungeonLibrary
 
         public override int CalcHitChance()
         {
+            int calculatedHitChance = HitChance;
+
             if (Nimble)
             {
-                int hitChance = HitChance + 5;
+                calculatedHitChance += 5;
             }
-            return CalcHitChance();
+            return calculatedHitChance;
         }
 
+
+        
 
         #endregion
     }

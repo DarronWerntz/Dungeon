@@ -33,7 +33,7 @@ namespace DungeonLibrary
         #region Constructors
 
         public Player(string name, Race playerRace, Weapon equippedWeapon)
-            : base(name: name, maxLife: 50, life: 50, hitChance: 70, block: 30)
+            : base(name: name, maxLife: 50, life: 50, hitChance: 80, block: 30)
         {
             PlayerRace = playerRace;
             EquippedWeapon = equippedWeapon;
@@ -41,8 +41,9 @@ namespace DungeonLibrary
             switch (PlayerRace)
             {
                 case Race.Orc:
-                    HitChance -= 10;
-                    EquippedWeapon.MaxDamage += 10;
+                    HitChance -= 20;
+                    EquippedWeapon.MinDamage += 5;
+                    EquippedWeapon.MaxDamage += 5;
                     
                     break;
                 case Race.Human:
@@ -71,9 +72,6 @@ namespace DungeonLibrary
                     break;
             }
         }
-
-
-
 
         #endregion
 
