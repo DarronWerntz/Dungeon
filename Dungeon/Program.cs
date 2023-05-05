@@ -69,7 +69,7 @@ namespace Dungeon
 
             #endregion
 
-            //Race Choice  *********************ASK JEREMY HOW TO MAKE THEM ONlY ABLE TO PUT IN A NUMBER
+            //Race Choice
             #region Race Selection
 
             Race[] races = Enum.GetValues<Race>();
